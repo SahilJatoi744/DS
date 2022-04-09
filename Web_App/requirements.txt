@@ -1,0 +1,5 @@
+matplotlib==3.5.1
+numpy==1.22.0
+scikit_learn==1.0.2
+streamlit==1.8.1
+click<=8.0.4
