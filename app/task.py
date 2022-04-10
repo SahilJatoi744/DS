@@ -206,4 +206,3 @@ plt.colorbar()
 
 # plt.show()
 st.pyplot(fig)
-
