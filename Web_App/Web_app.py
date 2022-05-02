@@ -70,8 +70,28 @@ def get_classifier(classifier_name,params):
     elif classifier_name == 'KNN':
         clf = KNeighborsClassifier(n_neighbors=params['K'])
     else:
-        clf = clf = RandomForestClassifier(n_estimators=params['estimators'],max_depth=params['max_depth'],random_state=1234)
+        clf = clf = RandomForestClassifier(random_state=1234)
     return clf
+
+# check box to show code
+if st.checkbox("Show code"):
+    with st.echo():
+        # ab is function ko bula lay gayn or clf varaible k equal rakh layn gay
+        clf = get_classifier(classifier_name, params)
+
+        # ab hum apnay dataset ko test and train data may split kr laytay han by 80/20 ratio
+        X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=1234)
+
+        # ab hum nay apnay classifier ki training karni hy
+        clf.fit(X_train, y_train)
+        y_pred = clf.predict(X_test)
+
+
+        # model ka accuracy score check layna ha or isay app pay print kr dayna ha
+        acc = accuracy_score(y_test, y_pred)
+
+
 
 # ab is function ko bula lay gayn or clf varaible k equal rakh layn gay
 clf = get_classifier(classifier_name,params)
@@ -82,6 +102,9 @@ X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=
 # ab hum nay apnay classifier ki training karni hy
 clf.fit(X_train,y_train)
 y_pred= clf.predict(X_test)
+
+
+
 
 # model ka accuracy score check layna ha or isay app pay print kr dayna ha
 acc = accuracy_score(y_test,y_pred)
