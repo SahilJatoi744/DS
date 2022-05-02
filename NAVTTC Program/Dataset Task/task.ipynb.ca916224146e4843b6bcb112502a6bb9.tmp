@@ -1,0 +1,4 @@
+sds['DEALSIZE'] = sds['DEALSIZE'].replace("NaN", 0)
+sds['DEALSIZE'] = sds['DEALSIZE'].replace("EMEA", 1)
+sds['DEALSIZE'] = sds['DEALSIZE'].replace("APAC", 2)
+sds['DEALSIZE'] = sds['DEALSIZE'].replace("Japan", 3)
