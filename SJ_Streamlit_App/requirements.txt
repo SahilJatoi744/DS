@@ -1,5 +1,5 @@
 Django==3.2.13
-mediapipe==1.21.6
+mediapipe==0.8.2
 numpy==1.22.0
 opencv_python==4.5.5.62
 Pillow==9.1.0
