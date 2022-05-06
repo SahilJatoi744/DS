@@ -3,3 +3,4 @@ streamlit == 0.69
 mediapipe==0.8.4.2
 numpy==1.18.5
 Pillow==8.2.0
+click<=8.0.4
