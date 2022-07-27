@@ -1,0 +1,6 @@
+Django==4.0.4
+mediapipe==0.8.10
+numpy==1.22.0
+opencv_python==4.5.5.62
+Pillow==9.1.0
+streamlit==1.8.1
