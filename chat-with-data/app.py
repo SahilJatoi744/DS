@@ -1,47 +1,50 @@
+# type: ignore
+import os
+from typing import TextIO
 import streamlit as st
-import pandas as pd
+
 import openai
+import pandas as pd
+import streamlit as st
+from langchain.agents import create_csv_agent, create_pandas_dataframe_agent
+from langchain.llms import OpenAI
 
-# Set your OpenAI API key here (replace YOUR_OPENAI_API_KEY with the actual key)
-openai.api_key = "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"
+#openai.api_key = st.secrets["OPENAI_API_KEY"]
+#openai.api_key = "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"
 
-def get_answer_csv(df: pd.DataFrame, query: str) -> str:
+
+def get_answer_csv(file: TextIO, query: str) -> str:
     """
-    Returns the answer to the given query by querying the CSV data.
+    Returns the answer to the given query by querying a CSV file.
 
     Args:
-    - df (pd.DataFrame): the CSV data as a Pandas dataframe to query.
+    - file (str): the file path to the CSV file to query.
     - query (str): the question to ask the agent.
 
     Returns:
-    - answer (str): the answer to the query from the CSV data.
+    - answer (str): the answer to the query from the CSV file.
     """
-    # Convert the CSV data to text format
-    csv_text = df.to_string(index=False, header=False)
-    
-    # Call the OpenAI API to get the answer
-    response = openai.Completion.create(
-        engine="text-davinci-002",  # Use appropriate engine like text-davinci-002, gpt-3.5-turbo, etc.
-        prompt=f"{query}\nCSV data:\n{csv_text}",
-        max_tokens=100
-    )
+    # Load the CSV file as a Pandas dataframe
+    # df = pd.read_csv(file)
+    #df = pd.read_csv("titanic.csv")
 
-    # Extract the answer from the API response
-    answer = response['choices'][0]['text'].strip()
+    # Create an agent using OpenAI and the Pandas dataframe
+    agent = create_csv_agent(OpenAI(temperature=0), file, verbose=False)
+    #agent = create_pandas_dataframe_agent(OpenAI(temperature=0), df, verbose=False)
+
+    # Run the agent on the given query and return the answer
+    #query = "whats the square root of the average age?"
+    answer = agent.run(query)
     return answer
 
-st.header("Chat with CSV Data")
 
-uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
+st.header("Chat with any CSV")
+uploaded_file = st.file_uploader("Upload a csv file", type=["csv"])
 
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-
-    st.subheader("Uploaded CSV Data")
-    st.write(df.head())
-
-    query = st.text_area("Ask any question related to the data")
+    query = st.text_area("Ask any question related to the document")
     button = st.button("Submit")
     if button:
-        result = get_answer_csv(df, query)
-        st.write(result)
+        st.write(get_answer_csv(uploaded_file, query))
+
+
