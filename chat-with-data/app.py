@@ -36,9 +36,16 @@ def get_answer_csv(df1: pd.DataFrame, df2: pd.DataFrame, query: str) -> str:
 
 st.header("Chat with Data")
 
-# Replace "path_to_csv_file_1" and "path_to_csv_file_2" with the actual paths of your CSV files
-df1 = pd.read_csv("final.csv")
-df2 = pd.read_csv("final_1.csv")
+# Get the current working directory
+current_dir = os.getcwd()
+
+# Replace "final.csv" and "final_1.csv" with the actual filenames
+file_path_1 = os.path.join(current_dir, "final.csv")
+file_path_2 = os.path.join(current_dir, "final_1.csv")
+
+# Read the CSV files into DataFrames
+df1 = pd.read_csv(file_path_1)
+df2 = pd.read_csv(file_path_2)
 
 query = st.text_area("Ask any question related to the data")
 button = st.button("Submit")
