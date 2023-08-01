@@ -31,16 +31,16 @@ def get_answer_csv(df1: pd.DataFrame, df2: pd.DataFrame, query: str) -> str:
     answer2 = agent2.run(query)
 
     # Combine the answers from both CSV files
-    answer = f"Answer from CSV File 1: {answer1}\nAnswer from CSV File 2: {answer2}"
+    answer = f"Answer from File 1: {answer1}\nAnswer from File 2: {answer2}"
     return answer
 
-st.header("Chat with CSV Data")
+st.header("Chat with Data")
 
 # Replace "path_to_csv_file_1" and "path_to_csv_file_2" with the actual paths of your CSV files
 df1 = pd.read_csv("final.csv")
 df2 = pd.read_csv("final_1.csv")
 
-query = st.text_area("Ask any question related to the CSV data")
+query = st.text_area("Ask any question related to the data")
 button = st.button("Submit")
 if button:
     result = get_answer_csv(df1, df2, query)
