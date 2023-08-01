@@ -16,11 +16,18 @@ def get_answer_csv(df: pd.DataFrame, query: str) -> str:
     Returns:
     - answer (str): the answer to the query from the CSV data.
     """
-    # Assuming you have the necessary code here to create an agent using OpenAI and the Pandas dataframe
-    # agent = create_csv_agent(OpenAI(temperature=0), df, verbose=False)
+    # Convert the CSV data to text format
+    csv_text = df.to_string(index=False, header=False)
+    
+    # Call the OpenAI API to get the answer
+    response = openai.Completion.create(
+        engine="text-davinci-002",  # Use appropriate engine like text-davinci-002, gpt-3.5-turbo, etc.
+        prompt=f"{query}\nCSV data:\n{csv_text}",
+        max_tokens=100
+    )
 
-    # For this example, we'll just return a simple response based on the query
-    answer = f"You asked: {query}. I will provide an answer based on the data in the CSV file."
+    # Extract the answer from the API response
+    answer = response['choices'][0]['text'].strip()
     return answer
 
 st.header("Chat with CSV Data")
