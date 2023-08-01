@@ -9,9 +9,8 @@ import streamlit as st
 from langchain.agents import create_csv_agent, create_pandas_dataframe_agent
 from langchain.llms import OpenAI
 
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = ""
 
-os.environ["OPENAI_API_KEY"] = "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"
 def get_answer_csv(file: TextIO, query: str) -> str:
     """
     Returns the answer to the given query by querying a CSV file.
