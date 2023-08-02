@@ -9,12 +9,20 @@ import streamlit as st
 from langchain.agents import create_csv_agent, create_pandas_dataframe_agent
 from langchain.llms import OpenAI
 
-# Set your OpenAI API key as a Streamlit secret
-OPENAI_API_KEY =  st.sidebar.text_input("Enter your OpenAI API key:", type="password")
+# Retrieve the OpenAI API key from the Streamlit secrets manager
+st.sidebar.markdown("### OpenAI API Key")
+openai_api_key = st.sidebar.text_input("Enter your OpenAI API key:", type="password")
 
-# Configure OpenAI API
-openai.api_key = OPENAI_API_KEY
-
+# Check if the API key starts with "sk-"
+if openai_api_key.strip().startswith("sk-"):
+    OPENAI_API_KEY = openai_api_key.strip()
+    # Configure OpenAI API
+    openai.api_key = OPENAI_API_KEY
+    proceed = True
+else:
+    proceed = False
+    st.sidebar.warning("OpenAI API key should start with 'sk-'")
+    
 def get_answer_csv(file: TextIO, query: str) -> str:
     """
     Returns the answer to the given query by querying a CSV file.
