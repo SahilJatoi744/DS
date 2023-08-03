@@ -22,7 +22,10 @@ if openai_api_key.strip().startswith("sk-"):
 else:
     proceed = False
     st.sidebar.warning("OpenAI API key should start with 'sk-'")
-    
+
+OPENAI_API_KEY = openai_api_key
+
+
 def get_answer_csv(file: TextIO, query: str) -> str:
     """
     Returns the answer to the given query by querying a CSV file.
