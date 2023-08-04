@@ -1,3 +1,5 @@
-streamlit==1.12.0
-streamlit-chat==0.3.9
-langchain==0.8.0
+langchain==0.0.251
+openai==0.27.2
+pandas==1.5.3
+streamlit==1.20.0
+streamlit_chat==0.1.1
