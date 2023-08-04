@@ -1,4 +1,4 @@
-streamlit_chat==0.1.1
+streamlit_chat==0.1.0
 langchain==0.0.251
 openai==0.27.2
 pandas==1.5.3
